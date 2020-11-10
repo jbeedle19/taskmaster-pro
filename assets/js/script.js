@@ -138,6 +138,7 @@ $(".list-group").on("blur", "input[type='text']", function() {
   $(this).replaceWith(taskSpan);
 });
 
+// Allows <li>s to be dragged and sorted in <ul>s
 $(".card .list-group").sortable({
   connectWith: $(".card .list-group"),
   scroll: false,
@@ -189,6 +190,20 @@ $(".card .list-group").sortable({
   }
 });
 
+// Allows tasks to be dropped into trash area and deleted
+$("#trash").droppable({
+  accept: ".card .list-group-item",
+  tolerance: "touch",
+  drop: function(event, ui) {
+    ui.draggable.remove();
+  }
+  /* over: function(event, ui) {
+    console.log("over");
+  },
+  out: function(event, ui) {
+    console.log("out");
+  } */
+});
 
 // modal was triggered
 $("#task-form-modal").on("show.bs.modal", function() {
