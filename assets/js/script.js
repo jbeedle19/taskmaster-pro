@@ -45,6 +45,49 @@ var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
+// Listens for <p> to be clicked and allows for editing
+$(".list-group").on("click", "p", function() {
+  var text = $(this)
+    .text()
+    .trim();
+  var textInput = $("<textarea>")
+    .addClass("form-control")
+    .val(text);
+  $(this).replaceWith(textInput);
+    textInput.trigger("focus");
+});
+
+// Listens for user to click out of editing task text area
+$(".list-group").on("blur", "textarea", function() {
+  // Get the textarea's current value/text
+  var text = $(this)
+    .val()
+    .trim();
+
+  // Get the parent ul's id attribute
+  var status = $(this)
+    .closest(".list-group")
+    .attr("id")
+    .replace("list-", "");
+  
+  // Get teh task's postition in the list of other li elements
+  var index = $(this)
+    .closest(".list-group-item")
+    .index();
+
+  tasks[status][index].text = text;
+  saveTasks();
+
+  // Recreate p element
+  var taskP = $("<p>")
+    .addClass("m-1")
+    .text(text);
+
+  // Replace textarea with p element
+  $(this).replaceWith(taskP)
+});
+
+
 
 
 
