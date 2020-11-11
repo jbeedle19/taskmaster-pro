@@ -3,16 +3,16 @@ var tasks = {};
 var createTask = function(taskText, taskDate, taskList) {
   // create elements that make up a task item
   var taskLi = $("<li>").addClass("list-group-item");
-  var taskSpan = $("<span>")
-    .addClass("badge badge-primary badge-pill")
-    .text(taskDate);
-  var taskP = $("<p>")
-    .addClass("m-1")
-    .text(taskText);
+  
+  var taskSpan = $("<span>").addClass("badge badge-primary badge-pill").text(taskDate);
+  
+  var taskP = $("<p>").addClass("m-1").text(taskText);
 
   // append span and p element to parent li
   taskLi.append(taskSpan, taskP);
 
+  // Check due date
+  auditTask(taskLi);
 
   // append to ul list on the page
   $("#list-" + taskList).append(taskLi);
@@ -139,6 +139,9 @@ $(".list-group").on("change", "input[type='text']", function() {
 
   // Replace input with span element
   $(this).replaceWith(taskSpan);
+
+  // Pass task's <li> element into auditTask() to check new due date
+  auditTask($(taskSpan).closest(".list-group-item"));
 });
 
 // Allows <li>s to be dragged and sorted in <ul>s
@@ -212,6 +215,26 @@ $("#trash").droppable({
 $("#modalDueDate").datepicker({
   minDate: 1
 });
+
+// Function to alert when tasks are close to due date
+var auditTask = function(taskEl) {
+  // Get date from task element
+  var date = $(taskEl).find("span").text().trim();
+
+  // Convert to moment object at 5:00pm
+  var time = moment(date, "L").set("hour", 17);
+
+  // Remove any old classes from element
+  $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
+
+  // Apply new class if task is near/over due date
+  if (moment().isAfter(time)) {
+    $(taskEl).addClass("list-group-item-danger");
+  }
+  else if (Math.abs(moment().diff(time, "days")) <=2) {
+    $(taskEl).addClass("list-group-item-warning");
+  }
+};
 
 
 // modal was triggered
