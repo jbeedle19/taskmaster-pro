@@ -151,10 +151,12 @@ $(".card .list-group").sortable({
   tolerance: "pointer",
   helper: "clone",
   activate: function() {
-    $(this).addClass("dropover")
+    $(this).addClass("dropover");
+    $(".bottom-trash").addClass("bottom-trash-drag");
   },
   deactivate: function() { 
-    $(this).removeClass("dropover")
+    $(this).removeClass("dropover");
+    $(".bottom-trash").removeClass("bottom-trash-drag");
   },
   over: function() {
     $(this).addClass("dropover-active");
@@ -202,13 +204,13 @@ $("#trash").droppable({
   tolerance: "touch",
   drop: function(event, ui) {
     ui.draggable.remove();
-  }
-  /* over: function(event, ui) {
-    console.log("over");
   },
-  out: function(event, ui) {
-    console.log("out");
-  } */
+  over: function() {
+    $(".bottom-trash").addClass("bottom-trash-active");
+  },
+  out: function() {
+    $(".bottom-trash").removeClass("bottom-trash-active");
+  }
 });
 
 // Add date picker to the modal's date field
