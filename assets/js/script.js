@@ -150,18 +150,18 @@ $(".card .list-group").sortable({
   scroll: false,
   tolerance: "pointer",
   helper: "clone",
-  /* activate: function(event) {
-    console.log("activate", this);
+  activate: function() {
+    $(this).addClass("dropover")
   },
-  deactivate: function(event) {
-    console.log("deactivate", this);
+  deactivate: function() { 
+    $(this).removeClass("dropover")
   },
-  over: function(event) {
-    console.log("over", event.target);
+  over: function() {
+    $(this).addClass("dropover-active");
   },
-  out: function(event) {
-    console.log("out", event.target);
-  }, */
+  out: function() {
+    $(this).removeClass("dropover-active");
+  },
   update: function(event) {
     // Array to store the task data in
     var tempArr = [];

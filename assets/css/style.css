@@ -2,10 +2,10 @@ ul.list-group {
   min-height: 130px;
 }
 
+/* Google Fonts */
 body {
   font-family: "Open Sans", sans-serif;
 }
-
 h1,
 h2,
 h3,
@@ -13,4 +13,12 @@ h4,
 h5,
 h6 {
   font-family: "Staatliches", sans-serif;
+}
+
+/* Styles for drag/drop */
+.dropover {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.dropover-active {
+  background-color: rgba(0, 0, 0, 0.9);
 }
