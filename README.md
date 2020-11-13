@@ -7,8 +7,6 @@ A website for users to create tasks and organize them by the tasks' due date.
 * HTML
 * CSS
 * JavaScript
-* Placeholder
-* Placeholder
 
 ## Website
 https://jbeedle19.github.io/taskmaster-pro/
